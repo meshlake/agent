@@ -1,0 +1,46 @@
+{
+  "situation": "damaged outer packaging",
+  "actions": [
+    {
+      "name": "AskForEvidence",
+      "situation": "user describes damaged outer packaging and don't provide any evidence"
+    },
+    {
+      "name": "NegotiateCompensation",
+      "situation": "user describes damaged outer packaging and provides evidence",
+      "rules": {
+        "compensation": [
+          {
+            "refund_amount": "100"
+          },
+          {
+            "refund_amount": "200"
+          },
+          {
+            "refund_amount": "300"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StableMessage",
+      "situation": "user agree compensation plan",
+      "rules": {
+        "message": "agree to compensation",
+        "sender": [{
+            "name":"email",
+            "receiver":"zhaofengnian18@gmail.com",
+            "subject":"agree to compensation",
+            "content":"agree to compensation"
+        }]
+      }
+    },
+    {
+      "name": "StableMessage",
+      "situation": "user insists on returning the product and has negotiated for compensation more than three",
+      "rules": {
+        "message": "insist on returning the product"
+      }
+    }
+  ]
+}
