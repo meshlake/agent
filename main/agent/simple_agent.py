@@ -7,8 +7,11 @@ from actions import (
     negotiate_compensation,
     stable_message,
     chat,
+    chat_with_doc,
+    doc_retriever,
 )
 from prompts.react_chat import react_chat
+from prompts.doc_retriever_prompt import doc_retriever as doc_retriever_prompt
 
 
 class SimpleAgent(AgentExecutor):
@@ -29,7 +32,9 @@ class SimpleAgent(AgentExecutor):
 
         prompt_template = react_chat
 
-        prompt = PromptTemplate.from_template(prompt_template)
+        prompt = PromptTemplate.from_template(
+            prompt_template, doc_retriever_prompt=doc_retriever_prompt
+        )
 
         agent = create_react_agent(llm, tools, prompt)
 
@@ -41,13 +46,17 @@ class SimpleAgent(AgentExecutor):
         if tool_name == "StableMessage":
             return stable_message.StableMessage(action_config)
         elif tool_name == "AskForEvidence":
-            return ask_for_evidence.AskForEvidence()
+            return ask_for_evidence.AskForEvidence(action_config)
         elif tool_name == "NegotiateCompensation":
             return negotiate_compensation.NegotiateCompensation(
                 readonlymemory, action_config
             )
         elif tool_name == "Chat":
             return chat.Chat(readonlymemory)
+        elif tool_name == "ChatWithDoc":
+            return chat_with_doc.ChatWithDoc(readonlymemory, action_config)
+        elif tool_name == "DocRetriever":
+            return doc_retriever.DocRetriever(readonlymemory, action_config)
         else:
             raise ValueError("Tool not found")
 

@@ -1,5 +1,5 @@
+from typing import Optional
 from .simple_agent import SimpleAgent
-from utils.state_mechine import StateMachine
 from utils.state_tree import StateTreeNode
 from langchain.memory import ConversationBufferMemory
 from actions.state_judgment import StateJudgment
@@ -12,7 +12,11 @@ import os
 class Agent:
     """Agent class."""
 
-    state: StateMachine
+    states: StateTreeNode
+
+    current_state: Optional[StateTreeNode]
+
+    state_history = []
 
     memory: ConversationBufferMemory
 
@@ -46,12 +50,14 @@ class Agent:
     def __init_state(self, config):
         state_tree = self.__config_to_state(config)
         state_tree.traverse()
-        self.state = StateMachine(state_tree)
+        self.states = state_tree
+        self.current_state: Optional[StateTreeNode] = state_tree
+        self.state_history = []
 
     # current state if has next state
-    def __is_has_next_state(self):
-        print(f"__is_has_next_state:{self.state.current_state.state}")
-        child_states = self.state.current_state.get_child_states()
+    def __is_has_next_state(self) -> bool:
+        print(f"__is_has_next_state:{self.current_state.state}")
+        child_states = self.current_state.get_child_states()
         return child_states != None and len(child_states) > 0
 
     def __build_new_memory(self, input):
@@ -62,28 +68,42 @@ class Agent:
         new_memory.chat_memory.add_user_message(HumanMessage(content=input))
         return new_memory
 
+    def __transition_to(self, input):
+        new_memory = self.__build_new_memory(input)
+        next_states = self.current_state.get_child_states()
+        next_state = self.state_judgment.get_next_state(new_memory, next_states)
+        print(f"Next state: {next_state}")
+        if next_state == "None":
+            return (None, new_memory, next_states)
+        else:
+            self.current_state = self.current_state.find_node_by_state(next_state)
+            self.state_history.append(next_state)
+            return (self.current_state, new_memory, next_states)
+        
+
     def invoke(self, input):
         print("###########")
         print(input)
         print("###########")
         """Invoke the agent."""
+
         if self.__is_has_next_state():
-            new_memory = self.__build_new_memory(input)
-            next_states = self.state.current_state.get_child_states()
-            next_state = self.state_judgment.get_next_state(new_memory, next_states)
-            print(f"Next state: {next_state}")
-            if next_state == "None":
+            next_state, new_memory, next_states = self.__transition_to(input)
+
+
+            if next_state == None:
                 print("state boot invoke.")
                 return self.state_boot.invoke(
                     memory=new_memory, states=next_states, input=input
                 )
             else:
-                self.state.transition_to(next_state)
-                print(f"Next state: {next_state}")
                 return self.invoke(input)
+            
+
         else:
-            config = self.state.current_state.config
+            config = self.current_state.config
             print("simple agent invoke")
+
             executor = SimpleAgent(config, self.memory)
             return executor.invoke(input)
 

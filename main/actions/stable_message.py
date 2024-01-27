@@ -24,7 +24,7 @@ class StableMessage(Tool):
         description = f"useful for when {situation}."
 
         super().__init__(
-            name=f"Stable message for {situation}",
+            name=f"weather_search",
             func=func,
             description=description,
             return_direct=True,

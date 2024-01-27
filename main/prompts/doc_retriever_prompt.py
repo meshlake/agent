@@ -1,0 +1,1 @@
+doc_retriever = "If DocRetriever is in the tools, when user ask question about the DocRetriever situation, you must use it."

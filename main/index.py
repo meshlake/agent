@@ -155,6 +155,255 @@ config = {
     ],
 }
 
+# after-sales, tax, xxxx
+
+config = {
+    "situation": "customer service for e-commerce",
+    "actions": [
+        {
+            "situation": "after-sales",
+            "actions": [
+                {
+                    "situation": "seller problem",
+                    "actions": [
+                        {
+                            "situation": "user describes damaged outer packaging",
+                            "actions": [
+                                {
+                                    "name": "AskForEvidence",
+                                    "situation": "user describes damaged outer packaging and don't provide any evidence",
+                                },
+                                {
+                                    "name": "NegotiateCompensation",
+                                    "situation": "user describes damaged outer packaging and provides evidence",
+                                    "rules": {
+                                        "compensation": [
+                                            {"refund_amount": "100"},
+                                            {"refund_amount": "200"},
+                                            {"refund_amount": "300"},
+                                        ]
+                                    },
+                                },
+                                {
+                                    "name": "StableMessage",
+                                    "situation": "user agree compensation plan",
+                                    "rules": {
+                                        "message": "agree to compensation",
+                                        "email": {
+                                            "receiver": "zhaofengnian18@gmail.com",
+                                            "subject": "用户同意赔偿方案",
+                                            "content": "请尽快处理用户的赔偿方案",
+                                        },
+                                    },
+                                },
+                                {
+                                    "name": "StableMessage",
+                                    "situation": "user insists on returning the product and has negotiated for compensation more than three",
+                                    "rules": {
+                                        "message": "insist on returning the product"
+                                    },
+                                },
+                            ],
+                        },
+                        {
+                            "situation": "user describes wrong delivery",
+                            "actions": [
+                                {
+                                    "name": "AskForEvidence",
+                                    "situation": "user describes wrong delivery and don't provide any evidence",
+                                },
+                                {
+                                    "name": "NegotiateCompensation",
+                                    "situation": "user describes wrong delivery and provides evidence",
+                                    "rules": {
+                                        "compensation": [
+                                            {"refund_amount": "100"},
+                                            {"refund_amount": "200"},
+                                            {"refund_amount": "300"},
+                                        ]
+                                    },
+                                },
+                                {
+                                    "name": "StableMessage",
+                                    "situation": "user agree compensation plan",
+                                    "rules": {
+                                        "message": "agree to compensation",
+                                        "email": {
+                                            "receiver": "zhaofengnian18@gmail.com",
+                                            "subject": "用户同意赔偿方案",
+                                            "content": "请尽快处理用户的赔偿方案",
+                                        },
+                                    },
+                                },
+                                {
+                                    "name": "StableMessage",
+                                    "situation": "user insists on returning the product and has negotiated for compensation more than three",
+                                    "rules": {
+                                        "message": "insist on returning the product"
+                                    },
+                                },
+                            ],
+                        },
+                        {
+                            "situation": "user describes product does not meet expectations",
+                            "actions": [
+                                {
+                                    "name": "AskForEvidence",
+                                    "situation": "user describes product does not meet expectations and don't provide any evidence",
+                                },
+                                {
+                                    "name": "NegotiateCompensation",
+                                    "situation": "user describes product does not meet expectations and provides evidence",
+                                    "rules": {
+                                        "compensation": [
+                                            {"refund_amount": "100"},
+                                            {"refund_amount": "200"},
+                                            {"refund_amount": "300"},
+                                        ]
+                                    },
+                                },
+                                {
+                                    "name": "StableMessage",
+                                    "situation": "user agree compensation plan",
+                                    "rules": {
+                                        "message": "agree to compensation",
+                                        "email": {
+                                            "receiver": "zhaofengnian18@gmail.com",
+                                            "subject": "用户同意赔偿方案",
+                                            "content": "请尽快处理用户的赔偿方案",
+                                        },
+                                    },
+                                },
+                                {
+                                    "name": "StableMessage",
+                                    "situation": "user insists on returning the product and has negotiated for compensation more than three",
+                                    "rules": {
+                                        "message": "insist on returning the product"
+                                    },
+                                },
+                            ],
+                        },
+                        {
+                            "situation": "user describes missing goods",
+                            "actions": [
+                                {
+                                    "name": "AskForEvidence",
+                                    "situation": "user describes missing goods and don't provide any evidence",
+                                },
+                                {
+                                    "name": "NegotiateCompensation",
+                                    "situation": "user describes missing goods and provides evidence",
+                                    "rules": {
+                                        "compensation": [
+                                            {"refund_amount": "100"},
+                                            {"refund_amount": "200"},
+                                            {"refund_amount": "300"},
+                                        ]
+                                    },
+                                },
+                                {
+                                    "name": "StableMessage",
+                                    "situation": "user agree compensation plan",
+                                    "rules": {
+                                        "message": "agree to compensation",
+                                        "email": {
+                                            "receiver": "zhaofengnian18@gmail.com",
+                                            "subject": "用户同意赔偿方案",
+                                            "content": "请尽快处理用户的赔偿方案",
+                                        },
+                                    },
+                                },
+                                {
+                                    "name": "StableMessage",
+                                    "situation": "user insists on returning the product and has negotiated for compensation more than three",
+                                    "rules": {
+                                        "message": "insist on returning the product"
+                                    },
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    "situation": "buyer problem",
+                    "actions": [
+                        {
+                            "name": "AskForEvidence",
+                            "situation": "user describes wrong order and don't provide any evidence",
+                        },
+                        {
+                            "name": "NegotiateCompensation",
+                            "situation": "user describes wrong order and provides evidence",
+                            "rules": {
+                                "compensation": [
+                                    {"refund_amount": "0"},
+                                    {"refund_amount": "10"},
+                                ]
+                            },
+                        },
+                        {
+                            "name": "StableMessage",
+                            "situation": "user agree compensation plan",
+                            "rules": {
+                                "message": "agree to compensation",
+                                "email": {
+                                    "receiver": "zhaofengnian18@gmail.com",
+                                    "subject": "用户同意赔偿方案",
+                                    "content": "请尽快处理用户的赔偿方案",
+                                },
+                            },
+                        },
+                        {
+                            "name": "StableMessage",
+                            "situation": "user insists on returning the product and has negotiated for compensation more than three",
+                            "rules": {"message": "insist on returning the product"},
+                        },
+                    ],
+                },
+                {
+                    "situation": "logistics problem",
+                    "actions": [
+                        {
+                            "name": "HasselFreeReturn",
+                            "situation": "user describes wrong order and don't provide any evidence",
+                        }
+                    ],
+                },
+                {
+                    "situation": "status checking",
+                    "actions": [
+                        {
+                            "name": "DeliveryStatus",
+                            "situation": "user asks about delivery status",
+                            "rules":{
+                                "api": "https://api.openai.com/v1/engines/davinci/completions",
+                            }
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "situation": "before-sales",
+            "actions": [
+                {
+                    "name": "AskProductInformation",
+                    "situation": "user asks about product information",
+                    "rules":{
+                        "knowledge": {
+
+                        }
+                    }
+                },
+                {
+                    "name": "AskDeliveryInformation",
+                    "situation": "user asks about delivery",
+                },
+            ],
+        },
+    ],
+}
+
 # config = {
 #     "situation": "damaged outer packaging",
 #     "actions": [

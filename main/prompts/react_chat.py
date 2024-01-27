@@ -7,6 +7,8 @@ react_chat = """
 
             Overall, Assistant is a powerful tool that can help with a wide range of tasks and provide valuable insights and information on a wide range of topics. Whether you need help with a specific question or just want to have a conversation about a particular topic, Assistant is here to assist.
 
+            {doc_retriever_prompt}
+
             TOOLS:
             ------
 
@@ -27,6 +29,7 @@ react_chat = """
 
             ```
             Thought: Do I need to use a tool? No
+            Why: [Why you do not need to use a tool]
             Final Answer: [your response here]
             ```
 
